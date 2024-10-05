@@ -1,30 +1,28 @@
-// Define the function to check the answer
 function checkAnswer() {
-    // The correct answer is "4"
+    // Declare a variable for the correct answer
     const correctAnswer = "4";
-    
-    // Retrieve the selected answer from the radio buttons
-    const userAnswer = document.querySelector('input[name="quiz"]:checked');
-    
-    // Get the feedback paragraph element
+
+    // Retrieve the user’s answer using querySelector
+    const selectedChoice = document.querySelector('input[name="quiz"]:checked');
+    const userAnswer = selectedChoice ? selectedChoice.value : null;
+
+    // Get the feedback element
     const feedback = document.getElementById('feedback');
 
-    // Check if the user selected an answer
-    if (userAnswer) {
-        // Compare the user's answer to the correct answer
-        if (userAnswer.value === correctAnswer) {
-            feedback.textContent = "Correct! Well done.";
-            feedback.style.color = "green";  // Optional: color feedback
-        } else {
-            feedback.textContent = "That's incorrect. Try again!";
-            feedback.style.color = "red";  // Optional: color feedback
-        }
+    // Check if an answer was selected
+    if (!userAnswer) {
+        feedback.textContent = "Please select an answer.";
+        return;
+    }
+
+    // Compare userAnswer with correctAnswer
+    if (userAnswer === correctAnswer) {
+        feedback.textContent = "Correct! Well done.";
     } else {
-        // If no answer is selected, prompt the user to choose one
-        feedback.textContent = "Please select an answer!";
-        feedback.style.color = "orange";  // Optional: color feedback
+        feedback.textContent = "That's incorrect. Try again!";
     }
 }
 
-// Add an event listener to the submit button to invoke checkAnswer on click
-document.getElementById('submit-answer').addEventListener('click', checkAnswer);
+// Add event listener to the button
+const submitButton = document.getElementById('submit-answer');
+submitButton.addEventListener('click', checkAnswer); // No parentheses here
